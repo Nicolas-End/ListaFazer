@@ -12,7 +12,7 @@ class banco:
         self.mydb = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="nicolas123"
+            password="SUA SENHA, YOUR PASSWORD"
         )
         self.cursor = self.mydb.cursor()
     #criar a tabela tarefas caso n exista

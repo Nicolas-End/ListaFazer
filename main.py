@@ -1,7 +1,7 @@
 from flask import Flask, request,render_template,flash
 from datetime import datetime
 #importandos as instacias criadas por mim para fazer as funcionalidades dos projeto
-from produtos import tarefa , banco
+from database import tarefa , banco
 #criando um obejeto que salva todos os dados dentra da tabel banco local
 save = banco()  
 save.daTarefas()
