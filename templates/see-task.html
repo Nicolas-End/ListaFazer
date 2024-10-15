@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/see.css">
+    <title>Tarefas</title>
+</head>
+<body>
+    <ul>
+    {%  for subpastas in array %}
+    <li>        
+        <span class="task-number">{{array.index(subpastas) + 1}}</span>
+        <div>
+        {% for i in subpastas %}
+            {% if subpastas.index(i) == 1 %}
+                <p>Nome da Tarefa: <strong>{{i}}</strong></p>
+            {% elif subpastas.index(i) == 2 %}
+                <p>Descrição da Tarefa: <strong>{{i}}</strong></p>
+            {% elif subpastas.index(i) == 3 %}
+                <p>Horario Colocado: <strong>{{i}}</strong></p> </br>
+            {% endif %}
+        {% endfor %}
+        <form action="del" method="post">
+            <button type="submit"  value="{{array.index(subpastas)+1}}" name="Valuebutton">tarefa concluida</button>
+     </form>
+    </div>
+    </li>
+    {% endfor %}
+    <form action="/">
+        <button type="submit"> Voltar</button>
+    </form>
+</ul>   
+
+</body>
+</html>
