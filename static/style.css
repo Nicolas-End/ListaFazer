@@ -11,7 +11,10 @@ body {
     color: #ffffff;
     text-align: center;
 }
-
+a{
+    color: white;
+    text-decoration: none;
+}
 ul {
     background-color: #61dafb;
     padding: 20px;

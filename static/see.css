@@ -11,7 +11,10 @@ body {
     color: #ffffff;
     text-align: center;
 }
-
+a{
+    color: white;
+    text-decoration: none;
+}
 ul {
     background-color: #5bc0de; /* Soft blue */
     padding: 20px;
