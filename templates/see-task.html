@@ -7,30 +7,11 @@
     <title>Tarefas</title>
 </head>
 <body>
-    <ul>
-    {%  for subpastas in array %}
-    <li>        
-        <span class="task-number">{{array.index(subpastas) + 1}}</span>
-        <div>
-        {% for i in subpastas %}
-            {% if subpastas.index(i) == 1 %}
-                <p>Nome da Tarefa: <strong>{{i}}</strong></p>
-            {% elif subpastas.index(i) == 2 %}
-                <p>Descrição da Tarefa: <strong>{{i}}</strong></p>
-            {% elif subpastas.index(i) == 3 %}
-                <p>Horario Colocado: <strong>{{i}}</strong></p> </br>
-            {% endif %}
-        {% endfor %}
-        <form action="del" method="post">
-            <button type="submit"  value="{{array.index(subpastas)+1}}" name="Valuebutton">tarefa concluida</button>
-     </form>
+    <div id="product-div">
+
+
     </div>
-    </li>
-    {% endfor %}
-    <br>
-        <button type="submit"><a href="index.html">Voltar</a></button>
 
-</ul>   
-
+    <script src="../static/js/see-task.js"></script>
 </body>
 </html>

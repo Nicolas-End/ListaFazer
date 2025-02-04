@@ -7,15 +7,15 @@
     <title>Add-item</title>
 </head>
 <body>
-    <form action="itens-add" method="post">
+    <form id="add_form">
         <label> Nome da Tarefa </label>
-        <input class="iten-name" name="name"> </input>
+        <input class="iten-name" name="name" id="inputName" required> </input>
         <label> Descrição </label>
-        <textarea name="desc" class="desc-task"></textarea>
+        <textarea name="desc" class="desc-task" id="inputId" required></textarea>
         <button type="submit">ADICIONAR</button>
     </form> 
     <br>
     <button type="submit"><a href="index.html">Voltar</a></button>
-
+    <script src="../static/js/add-task.js"></script>
 </body>
 </html>

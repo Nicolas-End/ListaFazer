@@ -9,25 +9,33 @@ load_dotenv()
 class DataBase:
     # fazendo ligação com o banco de dados---------------------------------------------------------------------
     def __init__(self):
-        self.mydb = mysql.connector.connect(
-            host=os.getenv("HOST"),
-            user=os.getenv("USER"),
-            password=os.getenv("PASSWORD")
-        )
-        self.cursor = self.mydb.cursor()
+        try:
+            hostName = str(os.getenv('HOST'))
+            userName = str(os.getenv('USER'))
+            passwordAcess = str(os.getenv('PASSWORD')) 
+            self.mydb = mysql.connector.connect(
+                host= hostName,
+                user= userName,
+                password= passwordAcess
+            )
+            self.cursor = self.mydb.cursor()
+        except Exception as e:
+            print("Error: ",e )
    
     def create_new_database(self):
+        try:
+            self.cursor.execute("CREATE DATABASE IF NOT EXISTS tarefas")
+            self.cursor.execute("USE tarefas")
+            self.cursor.execute("CREATE TABLE IF NOT EXISTS lista(id int auto_increment not null, nome varchar(60) not null, descri text, hour varchar(20),primary key(id));")
+        except Exception as e:
+            print("Error: ",e)
 
-        self.cursor.execute("CREATE DATABASE IF NOT EXISTS tarefas")
+    def add_new_task(self,name,desc,hours):
+
         self.cursor.execute("USE tarefas")
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS lista(id int auto_increment not null, nome varchar(60) not null, descri text, timer varchar(20),primary key(id));")
-    
-    def add_new_task(self,task):
 
-        self.cursor.execute("USE tarefas")
-
-        addsql = "INSERT INTO lista (nome,descri,timer) VALUES (%s,%s,%s)"
-        values = (task.nome,task.desc,task.horas)
+        addsql = "INSERT INTO lista (nome,descri,hour) VALUES (%s,%s,%s)"
+        values = (name,desc,hours)
         self.cursor.execute(addsql,values)
 
         self.mydb.commit()
