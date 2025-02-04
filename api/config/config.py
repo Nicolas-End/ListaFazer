@@ -3,11 +3,9 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-# Criando uma classe para salvar os dados do usuario----------------------------------------------------------
 
-#criando uma outra classe para colocar os dados do usuario em um banco de dados local--------------------------
 class DataBase:
-    # fazendo ligação com o banco de dados---------------------------------------------------------------------
+    
     def __init__(self):
         try:
             hostName = str(os.getenv('HOST'))

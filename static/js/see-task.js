@@ -11,7 +11,7 @@ function fetch_tasks(ul){
     )
 
     .then(data=> {
-
+        ul.innerHTML = ''
         data.forEach(element => {
             const li = document.createElement('li')
             li.appendChild(createSpan(element))
@@ -105,9 +105,13 @@ function ActionListenerForm(){
 }
 }
 
-const div = document.getElementById('product-div')
-const ul = document.createElement('ul')
-div.appendChild(ul)
+function Initial(){
 
-fetch_tasks(ul)
+    const div = document.getElementById('product-div')
+    const ul = document.createElement('ul')
+    div.appendChild(ul)
 
+    fetch_tasks(ul)
+
+}
+Initial()
