@@ -46,27 +46,36 @@ class DataBase:
         self.cursor.execute("SELECT * FROM lista")
 
         self.database_datas = self.cursor.fetchall()
+        
         self.array_tasks = []
-
         for i in self.database_datas:
             self.array_tasks.append(i)
+
         return self.array_tasks
-    #reorganiza e deleta o dados de acordo com o id escolhido pelo usuario
-    
-    def delDado(self,id):
-        self.cursor.execute("USE tarefas")
 
-        self.id = id
-        dele = "DELETE FROM lista WHERE id = %s  "
-        self.value = (self.id)
-        self.cursor.execute(dele,self.value)
+    def delete_task_from_database(self,id):
+        try:
+            id = (int(id))
 
-        #reorganizando os id do produto dando um "sort"
-        self.cursor.execute("SET @count = 0;")
-        self.cursor.execute("UPDATE lista SET id = @count:= @count + 1;")
-        self.cursor.execute("ALTER TABLE lista AUTO_INCREMENT = 1;")
+            self.cursor.execute("USE tarefas")
 
-        self.mydb.commit()
+            self.id = id
+            dele = "DELETE FROM lista WHERE id = %s  "
+            self.value = [self.id]
+            
+            self.cursor.execute(dele,self.value)
+
+            #reorganizando os id do produto dando um "sort"
+            self.cursor.execute("SET @count = 0;")
+            self.cursor.execute("UPDATE lista SET id = @count:= @count + 1;")
+            self.cursor.execute("ALTER TABLE lista AUTO_INCREMENT = 1;")
+
+            self.mydb.commit()
+            return True
+        
+        except Exception as e:
+            print('Error: ',e)
+            return False
 
         
 

@@ -16,7 +16,8 @@ CORS(app, origins="*")
 
 @app.route('/see-task', methods=["GET"])
 def seePage():
-    return jsonify({'Status':'Ok'})
+    list_task = save.get_tasks_to_do()
+    return jsonify(list_task),201
     #return render_template('see-task.html', array=save.get_tasks_to_do())
 
 @app.route('/itens-add', methods=["POST"])
@@ -40,9 +41,15 @@ def add():
 
 @app.route('/del',methods=["POST"])
 def dele():
-    if request.method == "POST":
-        button = [request.form['Valuebutton']]
-        save.delDado(button)
-    return render_template('index.html')
+    try:
+        response = request.get_json()
+
+        if save.delete_task_from_database(response['id']):
+            return jsonify({'status':'ok'}),201
+        
+        return jsonify({'status':'error'}),500
+    except Exception as e:
+        print('Error: ',e)   
+        return jsonify({'status':'error'}),500
 if __name__ == '__main__': 
     app.run()
