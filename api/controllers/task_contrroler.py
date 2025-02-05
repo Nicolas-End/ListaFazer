@@ -1,5 +1,5 @@
 from config.config import DataBase
-from datetime import datetime
+from datetime import datetime , timedelta
 from config.config import DataBase
 
 
@@ -12,17 +12,22 @@ class TaskController:
     def add_new_task_to_database(self,name,desc):
         
         try: 
+
+            
             name_exist_filter = {
                 "task_name":name
             }
             if self.coll.find_one(name_exist_filter):
-                return False,"Task has exist"
+                return False,"Task already exist"
             
             self.time_now = str(datetime.now())
+            self.coll.create_index([('expireAt',1)], expireAfterSeconds=1800)
+
             task_data = {
                 "task_name":name,
                 "task_description":desc,
-                "task_hour_made":self.time_now
+                "task_hour_made":self.time_now,
+                "expireAt": datetime.utcnow() + timedelta(seconds=1800)
             }
             self.coll.insert_one(task_data)
 
