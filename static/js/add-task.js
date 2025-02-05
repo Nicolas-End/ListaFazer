@@ -5,7 +5,7 @@ document.getElementById('add_form').addEventListener('submit',
     const name = document.getElementById('inputName').value
     const description = document.getElementById('inputId').value
 
-    fetch('https://lista-fazer-dun.vercel.app/itens-add',{
+    fetch('http://127.0.0.1:5000/itens-add',{
         method: 'POST',
         headers: {
         'Content-Type': 'application/json'

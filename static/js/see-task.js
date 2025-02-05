@@ -1,6 +1,6 @@
 function fetch_tasks(ul){
 
-    fetch ('https://lista-fazer-dun.vercel.app/see-task',{
+    fetch ('http://127.0.0.1:5000/see-task',{
         method: 'GET',
         headers: {
             'Accept': 'application/json'
@@ -13,6 +13,7 @@ function fetch_tasks(ul){
     .then(data=> {
         ul.innerHTML = ''
         data.forEach(element => {
+            console.log(element)
             const li = document.createElement('li')
             li.appendChild(createSpan(element))
             li.appendChild(createDiv(element))
@@ -33,7 +34,7 @@ function createSpan(element){
 
     const span = document.createElement('span')
     span.className = 'task-number'
-    span.textContent = (element[0])
+    span.textContent = (element['id'])
     return span
 
 }
@@ -45,9 +46,9 @@ function createDiv(element){
     const pDesc = document.createElement('p')
     const pHours = document.createElement('p')
 
-    pName.textContent = `Nome da Tarefa: ${element[1]}`
-    pDesc.textContent = `Descrição da Tarefa: ${element[2]}`
-    pHours.textContent = `Horario de Inicialização da Tarefa: ${element[3]}`
+    pName.textContent = `Nome da Tarefa: ${element['task_name']}`
+    pDesc.textContent = `Descrição da Tarefa: ${element['task_description']}`
+    pHours.textContent = `Horario de Inicialização da Tarefa: ${element['task_hour_made']}`
 
     div.appendChild(pName)
     div.appendChild(pDesc)
@@ -60,7 +61,7 @@ function createDeleteForm(element){
     const form = document.createElement('form')
     const button = document.createElement('button')
 
-    button.value = element[0]
+    button.value = element['task_name']
 
     button.textContent = "Eliminar Tarefa"
     button.type = 'submit'
@@ -82,12 +83,12 @@ function ActionListenerForm(){
 
             const button = event.target.querySelector('.deleteButton'); 
 
-            fetch('https://lista-fazer-dun.vercel.app/del', {
+            fetch('http://127.0.0.1:5000/del', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ id: button.value }) 
+                body: JSON.stringify({ task_name: button.value }) 
             })
             .then(response => response.json())
             .then(data => {

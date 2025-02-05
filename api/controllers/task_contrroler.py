@@ -1,23 +1,69 @@
 from config.config import DataBase
 from datetime import datetime
+from config.config import DataBase
+
 
 class TaskController:
 
-    def __init__(self,name,desc):
-        self.name = name
-        self.description = desc
-        self.hours = datetime.now().strftime('%H:%M:%S')
+    def __init__(self):
+        self.database = DataBase()
+        self.coll = self.database.coll
 
-    def add_new_task_to_database(self):
+    def add_new_task_to_database(self,name,desc):
         
         try: 
-            self.save = DataBase()  
-            self.save.create_new_database()
+            name_exist_filter = {
+                "task_name":name
+            }
+            if self.coll.find_one(name_exist_filter):
+                return False,"Task has exist"
+            
+            self.time_now = str(datetime.now())
+            task_data = {
+                "task_name":name,
+                "task_description":desc,
+                "task_hour_made":self.time_now
+            }
+            self.coll.insert_one(task_data)
 
-            self.save.add_new_task(self.name,self.description,self.hours)
-            return True
+            return True,"Ok"
         
         except Exception as e:
             print('Error: ',e)
-            return False
+            return False,"Excpetion Error"
+        
+    def get_tasks_to_do(self):
+        try:
 
+            cursor = self.coll.find({})
+
+            task_to_do = []
+            self.id_to_item = 0
+
+            for document in cursor:
+
+                self.id_to_item = self.id_to_item+1
+                document.pop('_id')
+                document['id'] = self.id_to_item
+
+                task_to_do.append(document)
+
+            return task_to_do
+
+
+        except Exception as e:
+            print('Error: ',e)
+            return False,'Excpetion Error'
+
+    def delete_task_by_name(self,name):
+        try:
+            self.name_finder = {'task_name':name}
+
+            if not self.coll.find_one(self.name_finder):
+                return False
+            
+            self.coll.find_one_and_delete(self.name_finder)
+            return True
+        except Exception as e:
+            print('Error: ',e)
+            return False
