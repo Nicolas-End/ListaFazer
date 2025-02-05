@@ -13,6 +13,9 @@ save.create_new_database()
 app = Flask(__name__)
 CORS(app, origins="*")
 
+@app.route('/')
+def home():
+    return "<h1> Seja Bem Vindo a minha Api</h1>"
 
 @app.route('/see-task', methods=["GET"])
 def seePage():
