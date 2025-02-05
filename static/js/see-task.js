@@ -1,6 +1,6 @@
 function fetch_tasks(ul){
 
-    fetch ('http://127.0.0.1:5000/see-task',{
+    fetch ('https://lista-fazer-eta.vercel.app/see-task',{
         method: 'GET',
         headers: {
             'Accept': 'application/json'
@@ -83,7 +83,7 @@ function ActionListenerForm(){
 
             const button = event.target.querySelector('.deleteButton'); 
 
-            fetch('http://127.0.0.1:5000/del', {
+            fetch('https://lista-fazer-eta.vercel.app/del', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json'
