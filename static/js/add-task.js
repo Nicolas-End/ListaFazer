@@ -20,10 +20,15 @@ document.getElementById('add_form').addEventListener('submit',
             document.getElementById('inputId').value = ''
             alert('Nova Tarefa Adicionada com sucesso')
         }
+        else if (data.status == 'Task already exist'){
+            document.getElementById('inputName').value = ''
+            document.getElementById('inputId').value = ''
+            alert('Esta tarefa já existe')
+        }
         else{
             document.getElementById('inputName').value = ''
             document.getElementById('inputId').value = ''
-            alert('A nova tarefa não foi adicionada')
+            alert('Opps!!, a tarefa não foi adicionada com exito')
         }
     }
     )

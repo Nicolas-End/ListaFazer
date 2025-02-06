@@ -34,11 +34,13 @@ def add():
         
         response = request.get_json()
         
-        if task.add_new_task_to_database(name=response['name'],desc=response['desc']):
+        returnServer, responseTask = task.add_new_task_to_database(name=response['name'],desc=response['desc'])
+            
+        if returnServer:
             return jsonify({'status':'ok'}), 201
             
         else:
-            return  jsonify({'status':'error'}), 500
+            return  jsonify({'status':responseTask}), 500
 
 
         
