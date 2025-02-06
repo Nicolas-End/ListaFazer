@@ -37,12 +37,10 @@ class TaskController:
             print('Error: ',e)
             return False,"Excpetion Error"
         
-    def get_tasks_to_do(self):
+    def return_tasks_in_database(self,cursor):
         try:
-
-            cursor = self.coll.find({})
-
-            task_to_do = []
+            
+            tasks_in_database = []
             self.id_to_item = 0
 
             for document in cursor:
@@ -51,10 +49,22 @@ class TaskController:
                 document.pop('_id')
                 document['id'] = self.id_to_item
 
-                task_to_do.append(document)
+                tasks_in_database.append(document)
+                
+            return  tasks_in_database
+        
+        except Exception as e:
+            print('Error: ',e )
+            return False
+    
+    def get_tasks_to_do(self):
+        try:
 
-            return task_to_do
+            cursor = self.coll.find({})
 
+            tasks_in_database = self.return_tasks_in_database(cursor=cursor)
+
+            return tasks_in_database
 
         except Exception as e:
             print('Error: ',e)

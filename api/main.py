@@ -5,7 +5,7 @@ from datetime import datetime
 from controllers.task_contrroler import TaskController
 
 task = TaskController()
-#criando um obejto que salva todos os dados dentra da tabel banco local
+
 
 
 app = Flask(__name__)
@@ -19,8 +19,9 @@ def home():
 def seePage():
     try:
         list_task = task.get_tasks_to_do()
-
-        return jsonify(list_task),201
+        if list_task:
+            return jsonify(list_task),201
+        return jsonify('Error'),500
     
     except Exception as e:
 
