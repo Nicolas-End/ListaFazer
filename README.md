@@ -1,6 +1,9 @@
-LISTA DE FAZERES
-TO DO LIST
+# LISTA DE FAZERES
+# TO DO LIST
 
+# Link para acessar na web:
+    https://nicolas-end.github.io/ListaFazer/templates
+  
 # DESCRIÇÃO 
     O projeto tem como proposito tentar facilitar o controle do cotidiano de uma pessoa, durante o processo do
     projeto houve muito desenvolvimento no meu conhecimento como a OOP, MySql, FLask muito legal
